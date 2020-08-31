@@ -6,7 +6,6 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var config = require("config");
-var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var products = require("./routes/products");
 var bodyParser = require("body-parser");
@@ -44,11 +43,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/products", products);
+app.use(express.static(path.join(__dirname, "client/build")));
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -109,16 +110,13 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-//mongodb://localhost/FamilyMart
+//mongodb://<dbuser>:<dbpassword>@ds127260.mlab.com:27260/heroku_xtg78bjw
 //mongodb+srv://arqam:arqam@mern1-siiuo.mongodb.net/FamilyMart?retryWrites=true&w=majority
 mongoose
-  .connect(
-    "mongodb+srv://arqam:arqam@mern1-siiuo.mongodb.net/FamilyMart?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect("mongodb://localhost:27017/FamilyMart", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Connected to mongoDB");
   })

@@ -71,7 +71,7 @@ import Push from "push.js";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import ShowWithSearch from "../products/ShowWithSearch";
-const socket = io.connect("http://localhost:4001");
+const socket = io.connect("https://familymart.gq");
 // const socket = io.connect(
 //   "http://ec2-18-224-94-239.us-east-2.compute.amazonaws.com:4001"
 // );

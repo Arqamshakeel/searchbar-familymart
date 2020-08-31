@@ -1,7 +1,9 @@
 var express = require("express");
 const app = require("express")();
 const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+//const io = require("socket.io")(http);
+var socketApi = require("../socketApi");
+var io = socketApi.io;
 var router = express.Router();
 var { Product } = require("../mongooseModels/mongooseModel.product");
 var { Order } = require("../mongooseModels/model.orders");
@@ -214,9 +216,9 @@ io.on("connection", (socket) => {
     return;
   });
 });
-http.listen(4001, () => {
-  console.log("Listening on port 4001");
-});
+// http.listen(4001, () => {
+//   console.log("Listening on port 4001");
+// });
 
 // var storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
