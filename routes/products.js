@@ -17,6 +17,7 @@ var multer = require("multer");
 //var upload = multer({ dest: "../uploads" });
 var jwt = require("jsonwebtoken");
 var validateUserRegMW = require("../middlewares/authUserReg");
+
 router.get("/", async (req, res, next) => {
   let product = await Product.find();
 
